@@ -42,7 +42,7 @@ func findNumberIn2DArray(matrix [][]int, target int) bool {
 }
 ```
 
-#### [替换空格](https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/)
+* #### [替换空格](https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/)
 
 ```go
 func replaceSpace(s string) string {
@@ -59,7 +59,7 @@ func replaceSpace(s string) string {
 }
 ```
 
-#### [从尾到头打印链表](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)
+* #### [从尾到头打印链表](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)
 
 ```go
 /**
@@ -84,6 +84,56 @@ func reversePrint(head *ListNode) []int {
         ans = append(ans, stack[i])
     }
     return ans
+}
+```
+
+* #### [重建二叉树](https://leetcode-cn.com/problems/zhong-jian-er-cha-shu-lcof/)
+
+```go
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+
+// 前序遍历第一个元素是root，确定root后，到中序遍历中，可以区分出左右子树
+// 在中序遍历中，继续递归进行区分操作
+// 这时的root，要根据上一次中序遍历的结果，上一次的root+1就是下一次递归的左子树root，root+1+左子树的长度就是右子树的root
+func buildTree(preorder []int, inorder []int) *TreeNode {
+
+    // 先用map记录下前序遍历的root位置
+    rootMap := make(map[int]int)
+    for i, v := range inorder {
+        rootMap[v] = i
+    }
+
+    // 递归递归查找子树
+    return recursive(preorder, 0, 0, len(preorder)-1, rootMap)
+}
+
+func recursive(preorder []int, root, left, right int, rootMap map[int]int) *TreeNode {
+    if left > right {
+        return nil
+    }
+
+    // 根节点中序遍历中的位置
+    // root是前序遍历中根节点的位置
+    rootIndex := rootMap[preorder[root]]
+    
+    // 构建树
+    node := &TreeNode{preorder[root], nil, nil}
+
+    // 递归左子树，前序遍历的根节点+1，得到下一次递归的左子树根节点
+    node.Left = recursive(preorder, root+1, left, rootIndex-1, rootMap)
+
+    // 递归右子树
+    // 左子树的长度为rootIndex-left，那么右子树root位置在rootIndex-left+root+1
+    node.Right = recursive(preorder, rootIndex-left+root+1, rootIndex+1, right, rootMap)
+
+    return node
 }
 ```
 
