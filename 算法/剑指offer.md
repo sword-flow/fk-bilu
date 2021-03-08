@@ -137,3 +137,44 @@ func recursive(preorder []int, root, left, right int, rootMap map[int]int) *Tree
 }
 ```
 
+* #### [用两个栈实现队列](https://leetcode-cn.com/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof/)
+
+```go
+// 左右两个栈
+type CQueue struct {
+    left []int
+    right []int
+}
+
+
+func Constructor() CQueue {
+    return CQueue{}
+}
+
+// 入栈时，永远进左栈
+func (this *CQueue) AppendTail(value int)  {
+    this.left = append(this.left, value)
+}
+
+// 出栈时，弹出右栈顶元素
+// 如果右栈没有元素，则把左栈的元素全部弹出，压入右栈
+func (this *CQueue) DeleteHead() int {
+    if len(this.right) != 0 {
+        r := this.right[len(this.right)-1]
+        this.right = this.right[0:len(this.right)-1]
+        return r
+    } else {
+        if len(this.left) == 0 {
+            return -1
+        }
+        for len(this.left) != 0 {
+            this.right = append(this.right, this.left[len(this.left)-1])
+            this.left = this.left[0:len(this.left)-1]
+        }
+        r := this.right[len(this.right)-1]
+        this.right = this.right[0:len(this.right)-1]
+        return r
+    }
+}
+```
+
