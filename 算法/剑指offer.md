@@ -234,3 +234,48 @@ func minArray(numbers []int) int {
 }
 ```
 
+* #### [矩阵中的路径](https://leetcode-cn.com/problems/ju-zhen-zhong-de-lu-jing-lcof/)
+
+```go
+// 深度优先搜索，遍历矩阵每个点，依次进行上下左右深度优先搜索，找到一个结果就退出
+// 时间复杂度，每个点都要走3个方向，来的方向不用走，格子全部都要走到，O(3^len(word)*M*N)
+// 空间复杂度O(K)，栈深度最多不超过K
+func exist(board [][]byte, word string) bool {
+    if len(board) == 0 {
+        return false
+    }
+
+    w := []byte(word)
+    for row:=0; row<len(board); row++ {
+        for column:=0; column<len(board[0]);column++ {
+            if dfs(&board, &w, 0, column, row) {
+                return true
+            }
+        }
+    }
+    return false
+}
+
+func dfs(board *[][]byte, word *[]byte, index, column, row int) bool {
+
+    // 行列越界或者当前的值跟word字母不一样
+    if row < 0 || row >= len(*board) || column < 0 || column >= len((*board)[0]) ||(*word)[index] != (*board)[row][column] {
+        return false
+    }
+
+    // 索引到了最后，说明之前的推出逻辑全部没走到，也就是之前的字母全部找到了，找到了结果
+    if index == len(*word)-1 {
+        return true
+    }
+
+    // 这里将当前位置设置成空的byte，表示这里被访问过了，防止下面递归的时候往回走又找到这个元素
+    var tmp byte
+    (*board)[row][column] = tmp
+    rs := dfs(board, word, index+1, column+1, row) || dfs(board, word, index+1, column, row+1) ||  dfs(board, word, index+1, column-1, row) || dfs(board, word, index+1, column, row-1)
+
+    // 还原矩阵
+    (*board)[row][column] = (*word)[index]
+    return rs
+}
+```
+
