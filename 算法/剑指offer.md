@@ -178,3 +178,29 @@ func (this *CQueue) DeleteHead() int {
 }
 ```
 
+* #### [斐波那契数列](https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/)
+
+```go
+// 递归解法超时，采用动态规划解法
+func fib(n int) int {
+    dp := []int{0, 1}
+    for i:=2; i<=n; i++ {
+        dp = append(dp, dp[i-1] % 1000000007 + dp[i-2] % 1000000007)
+    }
+    return dp[n] % 1000000007
+}
+```
+
+* #### [青蛙跳台阶问题](https://leetcode-cn.com/problems/qing-wa-tiao-tai-jie-wen-ti-lcof/)
+
+```go
+// 与斐波那契数列类似，动态规划解法
+func numWays(n int) int {
+    dp := []int{1, 1}
+    for i:=2; i<=n; i++ {
+        dp = append(dp, dp[i-1] % 1000000007 + dp[i-2] % 1000000007)
+    }
+    return dp[n] % 1000000007
+}
+```
+
