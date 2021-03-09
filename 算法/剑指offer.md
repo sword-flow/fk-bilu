@@ -204,3 +204,33 @@ func numWays(n int) int {
 }
 ```
 
+* #### [旋转数组的最小数字](https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/)
+
+```go
+// 二分查找变种
+func minArray(numbers []int) int {
+    // if len(numbers) == 0 {
+    //     return -1
+    // }
+    // if len(numbers) == 1 {
+    //     return numbers[0]
+    // }
+    left, right := 0, len(numbers)-1
+    for left < right {
+        mid := left + (right - left) / 2
+        if numbers[mid] > numbers[right] {
+            // 中位数大于最右的数，说明最小元素在右边
+            left = mid + 1
+        } else if numbers[mid] < numbers[right] {
+            // 中位数小于最右的数，说明右半边的元素有序，那么最小数字在左半边
+            // 这里不能确定mid是不是最小的，所以右指针只移动到mid
+            right = mid
+        } else {
+            // 中位数和最右元素相等，判断不了,但可以确定右边的元素全部相同，只是不知道是不是最小元素，那么将right左移一位继续查找
+            right--
+        }
+    }
+    return numbers[left]
+}
+```
+
