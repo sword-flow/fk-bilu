@@ -340,3 +340,21 @@ func pow(x, y int) int {
 }
 ```
 
+* #### [二进制中1的个数](https://leetcode-cn.com/problems/er-jin-zhi-zhong-1de-ge-shu-lcof/)
+
+```go
+// 位运算
+// &，都为1则为1， | 有一个为1则为1， ^不同则为1
+func hammingWeight(num uint32) int {
+    var r int
+    for num>0 {
+        if num & 1 == 1 {
+            r++
+        }
+        // 右移一位
+        num>>=1
+    }
+    return r
+}
+```
+
