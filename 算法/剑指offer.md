@@ -397,3 +397,52 @@ func deleteNode(head *ListNode, val int) *ListNode {
 }
 ```
 
+* #### [调整数组顺序使奇数位于偶数前面](https://leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof/)
+
+```go
+// 双指针，左右各一个，如果左边碰到了偶数，那么右边指针开始向左走，找到一个奇数，然后交换
+func exchange(nums []int) []int {
+    left, right := 0, len(nums)-1
+    for left < right {
+        if nums[left] % 2 == 0 {
+            for left < right && nums[right] % 2 == 0 {
+                right--
+            }
+            nums[left], nums[right] = nums[right], nums[left]
+        }
+        left++
+    }
+    return nums
+}
+```
+
+* #### [链表中倒数第k个节点](https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/)
+
+```go
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+
+// 双指针，前面的指针提往前多走k步，然后同步往后走，当前指针到达链表尾部的时候，后指针的节点即是结果
+func getKthFromEnd(head *ListNode, k int) *ListNode {
+    pivot := new(ListNode)
+    pivot.Next = head
+    cur := pivot
+
+    for i:=0; i<k; i++ {
+        cur = cur.Next
+    }
+
+    for cur != nil {
+        pivot = pivot.Next
+        cur = cur.Next
+    }
+    return pivot
+    
+}
+```
+
