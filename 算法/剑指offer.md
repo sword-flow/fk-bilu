@@ -279,3 +279,64 @@ func dfs(board *[][]byte, word *[]byte, index, column, row int) bool {
 }
 ```
 
+* #### [剪绳子](https://leetcode-cn.com/problems/jian-sheng-zi-lcof/)
+
+```go
+// 拆出来的3越多越大，如果拆完最后只剩1，那么少拆一个3，最后一个数字变为4
+func cuttingRope(n int) int {
+
+    // 小于等于3的时候，直接返回n-1
+    if n <= 3 {
+        return n-1
+    }
+
+
+    // 计算能拆出多少个3
+    b := n / 3
+
+    // 最后剩下1，那么少拆一个3
+    if n % 3 == 1 {
+        return int(math.Pow(float64(3), float64(b-1)) * float64(4))
+    } else if n % 3 == 0 {
+        return int(math.Pow(float64(3), float64(b)))
+    } else {
+        return int(math.Pow(float64(3), float64(b)) * float64(2))
+    }
+}
+```
+
+* #### [剪绳子 II](https://leetcode-cn.com/problems/jian-sheng-zi-ii-lcof/)
+
+```go
+// 拆出来的3越多越大，如果拆完最后只剩1，那么少拆一个3，最后一个数字变为4
+// 这里需要自己实现pow函数
+func cuttingRope(n int) int {
+
+    // 小于等于3的时候，直接返回n-1
+    if n <= 3 {
+        return n-1
+    }
+
+
+    // 计算能拆出多少个3
+    b := n / 3
+
+    // 最后剩下1，那么少拆一个3
+    if n % 3 == 1 {
+        return pow(3, b-1) * 4 % 1000000007
+    } else if n % 3 == 0 {
+        return pow(3, b) % 1000000007
+    } else {
+        return pow(3, b) * 2 % 1000000007
+    }
+}
+
+func pow(x, y int) int {
+    r := 1
+    for i:=0; i<y; i++ {
+        r = (r * x) % 1000000007
+    }
+    return r
+}
+```
+
