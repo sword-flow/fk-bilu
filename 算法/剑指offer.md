@@ -358,3 +358,42 @@ func hammingWeight(num uint32) int {
 }
 ```
 
+* #### [打印从1到最大的n位数](https://leetcode-cn.com/problems/da-yin-cong-1dao-zui-da-de-nwei-shu-lcof/)
+
+```go
+// 最大的范围应该是1～pow(10, n)
+func printNumbers(n int) []int {
+    var r []int
+    for i:=1; i<int(math.Pow(10.0, float64(n))); i++ {
+        r = append(r, i)
+    }
+    return r
+}
+```
+
+* #### [删除链表的节点](https://leetcode-cn.com/problems/shan-chu-lian-biao-de-jie-dian-lcof/)
+
+```go
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func deleteNode(head *ListNode, val int) *ListNode {
+
+    pivot := new(ListNode)
+    pivot.Next = head
+    cur := pivot
+    for cur.Next != nil {
+        if cur.Next.Val == val {
+            cur.Next = cur.Next.Next
+            return pivot.Next
+        }
+        cur = cur.Next
+    }
+    return pivot.Next
+}
+```
+
