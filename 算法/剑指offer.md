@@ -446,3 +446,31 @@ func getKthFromEnd(head *ListNode, k int) *ListNode {
 }
 ```
 
+* #### [反转链表](https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/)
+
+```go
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func reverseList(head *ListNode) *ListNode {
+    var prev *ListNode
+    cur := head
+    for cur != nil {
+        // 存一下当前节点的下一个值
+        tmp := cur.Next 
+
+        // 两步交换，反转两个节点
+        cur.Next = prev
+        prev = cur
+
+        // 指针向后移动
+        cur = tmp
+    }
+    return prev
+}
+```
+
