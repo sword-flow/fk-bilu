@@ -474,3 +474,37 @@ func reverseList(head *ListNode) *ListNode {
 }
 ```
 
+* #### [合并两个排序的链表](https://leetcode-cn.com/problems/he-bing-liang-ge-pai-xu-de-lian-biao-lcof/)
+
+```go
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
+    r := new(ListNode)
+    tmp := r
+    for l1 != nil && l2 != nil {
+        if l1.Val > l2.Val {
+            tmp.Next = l2
+            l2 = l2.Next
+        } else {
+            tmp.Next = l1
+            l1 = l1.Next
+        }
+        tmp = tmp.Next
+    }
+
+    if l1 != nil {
+        tmp.Next = l1
+    }
+    if l2 != nil {
+        tmp.Next = l2
+    }
+    return r.Next
+}
+```
+
