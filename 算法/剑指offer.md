@@ -611,3 +611,51 @@ func recur(left, right *TreeNode) bool {
 }
 ```
 
+* #### [顺时针打印矩阵](https://leetcode-cn.com/problems/shun-shi-zhen-da-yin-ju-zhen-lcof/)
+
+``` go
+func spiralOrder(matrix [][]int) []int {
+    if len(matrix) == 0 || len(matrix[0]) == 0{
+        return []int{}
+    }
+
+    // 四条边，顺时针，顶部，右边，底部，左边
+    a, b, c, d := 0, len(matrix[0])-1, len(matrix)-1, 0
+    var ans []int
+    for {
+        for i:=d; i<=b; i++ {
+            ans = append(ans, matrix[a][i])
+        }
+        a++
+        if a > c {
+            break
+        }
+
+        for i:=a; i<=c; i++ {
+            ans = append(ans, matrix[i][b])
+        }
+        b--
+        if b < d {
+            break
+        }
+
+        for i:=b; i>=d; i-- {
+            ans = append(ans, matrix[c][i])
+        }
+        c--
+        if c < a {
+            break
+        }
+
+        for i:=c; i>=a; i-- {
+            ans = append(ans, matrix[i][d])
+        }
+        d++
+        if d > b {
+            break
+        }
+    }
+    return ans
+}
+```
+
