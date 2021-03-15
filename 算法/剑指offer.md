@@ -508,3 +508,42 @@ func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
 }
 ```
 
+* #### [树的子结构](https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/)
+
+```go
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+
+// 递归思路
+func isSubStructure(A *TreeNode, B *TreeNode) bool {
+    return A != nil && B != nil && (recur(A, B) || isSubStructure(A.Left, B) || isSubStructure(A.Right, B))
+}
+
+func recur(a *TreeNode, b *TreeNode) bool {
+
+    // 这里b已经搜索结束了，但是之前并没有返回，说明之前a,b都是相同的
+    if b == nil {
+        return true
+    }
+
+    // 到这里，说明b != nil && a == nil，那么b一定不是子结构
+    if a == nil {
+        return false
+    }
+
+    // 值不同
+    if a.Val != b.Val {
+        return false
+    }
+
+    // 继续往下搜索
+    return recur(a.Left, b.Left) && recur(a.Right, b.Right)
+}
+```
+
