@@ -574,3 +574,40 @@ func mirrorTree(root *TreeNode) *TreeNode {
 }
 ```
 
+* #### [对称的二叉树](https://leetcode-cn.com/problems/dui-cheng-de-er-cha-shu-lcof/)
+
+```go
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+
+// 递归判断，左子树的左边=右子树的右边，左子树的右边=右子树的左边
+func isSymmetric(root *TreeNode) bool {
+    if root == nil {
+        return true
+    }
+
+    return recur(root.Left, root.Right)
+}
+
+func recur(left, right *TreeNode) bool {
+
+    // 左右都递归完成了
+    if left == nil && right == nil {
+        return true
+    }
+
+    // 左右子树右一个先完成，或者左右值不想等
+    if left == nil || right == nil || left.Val != right.Val {
+        return false
+    }
+
+    return recur(left.Left, right.Right) && recur(left.Right, right.Left)
+}
+```
+
