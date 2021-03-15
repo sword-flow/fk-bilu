@@ -547,3 +547,30 @@ func recur(a *TreeNode, b *TreeNode) bool {
 }
 ```
 
+* #### [二叉树的镜像](https://leetcode-cn.com/problems/er-cha-shu-de-jing-xiang-lcof/)
+
+```go
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+
+// 递归
+func mirrorTree(root *TreeNode) *TreeNode {
+    if root == nil {
+        return nil
+    }
+
+    // 右子树先存下来，然后将右子数递归交换成左子树
+    // 左子树递归暂存的右子树
+    right := root.Right
+    root.Right = mirrorTree(root.Left)
+    root.Left = mirrorTree(right)
+    return root
+}
+```
+
