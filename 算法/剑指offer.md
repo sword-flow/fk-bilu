@@ -713,3 +713,24 @@ func (this *MinStack) Min() int {
  */
 ```
 
+* #### [栈的压入、弹出序列](https://leetcode-cn.com/problems/zhan-de-ya-ru-dan-chu-xu-lie-lcof/)
+
+```go
+// 用一个辅助栈stack模拟入栈情况
+// 栈顶元素与弹出栈顶的元素相同的时候，执行弹出操作
+// 最后辅助栈没有数据，说明压入栈能模拟弹出栈
+func validateStackSequences(pushed []int, popped []int) bool {
+    var stack []int
+    var popIndex int
+    for _, i := range pushed {
+        stack = append(stack, i)
+        for len(stack) != 0 && stack[len(stack)-1] == popped[popIndex] {
+            stack = stack[0:len(stack)-1]
+            popIndex++
+        }
+    }
+
+    return len(stack) == 0
+}
+```
+
