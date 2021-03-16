@@ -659,3 +659,57 @@ func spiralOrder(matrix [][]int) []int {
 }
 ```
 
+* #### [包含min函数的栈](https://leetcode-cn.com/problems/bao-han-minhan-shu-de-zhan-lcof/)
+
+```go
+type MinStack struct {
+    MinS []int
+    Stack []int
+}
+
+
+/** initialize your data structure here. */
+func Constructor() MinStack {
+    return MinStack{}
+}
+
+// 保证最小元素的栈内元素顺序和主栈的顺序一致
+func (this *MinStack) Push(x int)  {
+    this.Stack = append(this.Stack, x)
+    if len(this.MinS) == 0 || x <= this.MinS[len(this.MinS)-1] {
+        this.MinS = append(this.MinS, x)
+    }
+}
+
+
+func (this *MinStack) Pop()  {
+    if this.Stack[len(this.Stack)-1] == this.MinS[len(this.MinS)-1] {
+        this.MinS = this.MinS[0:len(this.MinS)-1]
+    }
+    this.Stack = this.Stack[0:len(this.Stack)-1]
+}
+
+
+func (this *MinStack) Top() int {
+    return this.Stack[len(this.Stack)-1]
+}
+
+
+func (this *MinStack) Min() int {
+    if len(this.MinS) == 0 {
+        return 0
+    }
+    return this.MinS[len(this.MinS)-1]
+}
+
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * obj := Constructor();
+ * obj.Push(x);
+ * obj.Pop();
+ * param_3 := obj.Top();
+ * param_4 := obj.Min();
+ */
+```
+
