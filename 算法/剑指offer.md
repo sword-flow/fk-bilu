@@ -734,3 +734,37 @@ func validateStackSequences(pushed []int, popped []int) bool {
 }
 ```
 
+* #### [从上到下打印二叉树](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-lcof/)
+
+```go
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+
+// bfs搜索
+func levelOrder(root *TreeNode) []int {
+    var ans []int
+    if root == nil {
+        return ans
+    }
+    deque := []*TreeNode{root}
+    for len(deque) != 0 {
+        tmp := deque[0]
+        deque = deque[1:len(deque)]
+        ans = append(ans, tmp.Val)
+        if tmp.Left != nil {
+            deque = append(deque, tmp.Left)
+        }
+        if tmp.Right != nil {
+            deque = append(deque, tmp.Right)
+        }
+    }
+    return ans
+}
+```
+
